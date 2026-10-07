@@ -1,0 +1,41 @@
+[
+ {
+  "name": "7000",
+  "price": 7000,
+  "link": "https://www.boligportal.dk/en/rental-apartments/aalborg/53m2-2-room-id-5665233",
+  "floor": 3,
+  "memo": "관리비 하면 8000? 제일 비싼데",
+  "shots": [
+   "7000/Screenshot%202026-10-07%20at%206.27.34%E2%80%AFPM.png",
+   "7000/Screenshot%202026-10-07%20at%206.27.45%E2%80%AFPM.png",
+   "7000/Screenshot%202026-10-07%20at%206.27.52%E2%80%AFPM.png"
+  ],
+  "map": "7000/download.png"
+ },
+ {
+  "name": "7095",
+  "price": 7095,
+  "link": "https://www.boligportal.dk/en/rental-apartments/aalborg/63m2-2-room-id-5250570",
+  "floor": 1,
+  "memo": "화장실이 마음에 드는데 여기도 예산 초과",
+  "shots": [
+   "7095/Screenshot%202026-10-07%20at%206.24.58%E2%80%AFPM.png",
+   "7095/Screenshot%202026-10-07%20at%206.25.08%E2%80%AFPM.png",
+   "7095/Screenshot%202026-10-07%20at%206.25.13%E2%80%AFPM.png"
+  ],
+  "map": "7095/download.png"
+ },
+ {
+  "name": "7295",
+  "price": 7295,
+  "link": "https://www.boligportal.dk/en/rental-apartments/aalborg/74m2-2-room-id-5410088",
+  "floor": 0,
+  "memo": "화장실 너무 마음에 드는데 예산 초과, ground floor 싫음",
+  "shots": [
+   "7295/Screenshot%202026-10-07%20at%206.18.38%E2%80%AFPM.png",
+   "7295/Screenshot%202026-10-07%20at%206.18.45%E2%80%AFPM.png",
+   "7295/Screenshot%202026-10-07%20at%206.18.54%E2%80%AFPM.png"
+  ],
+  "map": "7295/download.png"
+ }
+]

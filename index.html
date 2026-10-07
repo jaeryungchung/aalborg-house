@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aalborg 집 비교</title>
+<style>
+  :root{--bg:#f4f4f2;--card:#fff;--ink:#1c1c1e;--sub:#6b6b70;--line:#e2e2de;--accent:#2563eb}
+  @media (prefers-color-scheme:dark){:root{--bg:#161618;--card:#222226;--ink:#f2f2f2;--sub:#9a9aa0;--line:#333338;--accent:#6ea0ff}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic","Pretendard",system-ui,sans-serif;line-height:1.5}
+  header{padding:14px 20px;font-weight:700;font-size:18px}
+  header small{color:var(--sub);font-weight:400;margin-left:8px;font-size:13px}
+  #board{display:flex;gap:16px;overflow-x:auto;padding:0 20px 24px;align-items:flex-start;cursor:grab;user-select:none;-webkit-user-select:none}
+  #board.drag{cursor:grabbing}
+  .col{flex:0 0 340px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .col img{display:block;width:100%;height:auto;-webkit-user-drag:none;pointer-events:none}
+  .sec{border-top:1px solid var(--line)}
+  .sec:first-child{border-top:0}
+  .label{font-size:11px;color:var(--sub);padding:8px 14px 4px;letter-spacing:.04em}
+  .price{font-size:28px;font-weight:800;padding:14px 14px 2px}
+  .price span{font-size:15px;font-weight:600;color:var(--sub);margin-left:4px}
+  .floor{padding:0 14px 4px;font-size:13px;font-weight:600;color:var(--accent)}
+  .memo{padding:4px 14px 12px;font-size:15px;white-space:pre-wrap}
+  .link{display:block;padding:0 14px 14px}
+  .link a{color:var(--accent);font-size:14px;text-decoration:none;font-weight:600}
+  .empty{padding:20px 14px;color:var(--sub);font-size:13px}
+</style>
+</head>
+<body>
+<header>Aalborg 집 비교<small id="count"></small></header>
+<div id="board"></div>
+<script>
+const LABELS=['전체','화장실','세부'];
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const board=document.getElementById('board');
+
+fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(hs=>{
+  document.getElementById('count').textContent=hs.length+'곳 · 가격 낮은 순';
+  board.innerHTML=hs.map(h=>{
+    const shots=h.shots.map((s,i)=>`<div class="sec"><div class="label">${LABELS[i]||'사진 '+(i+1)}</div><img src="${s}" loading="lazy" alt=""></div>`).join('');
+    return `<section class="col">
+      <div class="sec"><div class="price">${h.price!=null?h.price.toLocaleString('ko-KR'):esc(h.name)}<span>kr.</span></div>
+        ${h.floor!=null?`<div class="floor">${h.floor===0?'Ground floor':h.floor+'층'}</div>`:''}<div class="memo">${esc(h.memo)||''}</div>
+        ${h.link?`<div class="link"><a href="${esc(h.link)}" target="_blank" rel="noopener">매물 링크 ↗</a></div>`:''}</div>
+      ${shots}
+      ${h.map?`<div class="sec"><div class="label">지도</div><img src="${h.map}" loading="lazy" alt=""></div>`:'<div class="sec empty">지도 없음</div>'}
+    </section>`}).join('');
+});
+
+// 마우스로 드래그해서 가로 스크롤
+let down=false,sx=0,sl=0;
+board.addEventListener('mousedown',e=>{down=true;sx=e.pageX;sl=board.scrollLeft;board.classList.add('drag')});
+addEventListener('mouseup',()=>{down=false;board.classList.remove('drag')});
+addEventListener('mousemove',e=>{if(down){board.scrollLeft=sl-(e.pageX-sx)}});
+</script>
+</body>
+</html>
